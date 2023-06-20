@@ -37,6 +37,17 @@ int main(int argc, char* argv[])
     }
 
     char command[MAX_CMD_LENGTH] = { 0 };
+
+    if (argc == 2)
+    {
+        strcpy(command, "nvim ");
+        strcat(command, argv[1]);
+
+        system(command);
+
+        return 0;
+    }
+
     strcpy(command, "nvim -c \"");
 
     file_t files[MAX_FILES];
