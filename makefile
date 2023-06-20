@@ -1,8 +1,13 @@
+CC := gcc
+CFLAGS := -Wall -Wextra -Wpedantic
+INSTALL_PATH := ~/bin/
+BIN_NAME :=tabs
+
 build:
-	gcc src/* -o tabs
+	$(CC) $(CFLAGS) src/main.c -o $(BIN_NAME)
 
 install: build
-	mv tabs ~/bin/
+	mv tabs $(INSTALL_PATH)
 
 debug:
-	gcc src/* -g
+	$(CC) $(CFLAGS) src/main.c -g
