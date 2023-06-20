@@ -83,8 +83,8 @@ int main(int argc, char* argv[])
         if (!extension)
             compare = extension;
 
-        int length_prev = extension_prev - prev.name;
-        int length = extension - files[i].name;
+        int length_prev = compare_prev - prev.name;
+        int length = compare - files[i].name;
 
         if (strncmp(prev.name, files[i].name, length_prev < length ? length_prev : length))
         {
