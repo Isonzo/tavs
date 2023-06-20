@@ -27,13 +27,13 @@ int main(int argc, char* argv[])
 {
     if (argc < 2)
     {
-        fprintf(stderr, "Usage: %s <file1> <file2> ...", argv[0]);
+        fprintf(stderr, "Usage: %s <file1> <file2> ...\n", argv[0]);
         return 2;
     }
 
     if (argc >= MAX_FILES)
     {
-        fprintf(stderr, "Too many files! Current set limit: %d", MAX_FILES);
+        fprintf(stderr, "Too many files! Current set limit: %d\n", MAX_FILES);
     }
 
     char command[MAX_CMD_LENGTH] = { 0 };
@@ -96,4 +96,5 @@ int main(int argc, char* argv[])
 
     strcat(command, "tabfirst|tabclose\"");
     system(command);
+    return 0;
 }
