@@ -10,17 +10,38 @@ typedef struct
     char* name;
 }file_t;
 
-int cmpr_file(const void* a, const void* b)
+int namecmp(file_t a, file_t b)
+{
+    char* extension_prev = strrchr(a.name, '.');
+    char* extension = strrchr(b.name, '.');
+
+    char* compare_prev = strchr(a.name, 0);
+    char* compare = strchr(b.name, 0);
+
+    if (extension_prev)
+        compare_prev = extension_prev;
+
+    if (extension)
+        compare = extension;
+
+    int length_prev = compare_prev - a.name;
+    int length = compare - b.name;
+
+    return (strncmp(a.name, b.name, length_prev < length ? length_prev : length));
+}
+
+int filecmp(const void* a, const void* b)
 {
     file_t file_a = *(file_t*)a;
     file_t file_b = *(file_t*)b;
 
-    if (strcmp(file_a.name, "main.c"))
-            return 1;
-    if (strcmp(file_b.name, "main.c"))
+    if (!strcmp(file_a.name, "main.c"))
             return -1;
+    if (!strcmp(file_b.name, "main.c"))
+            return 1;
 
-    return strcmp(file_a.name, file_b.name);
+
+    return namecmp(file_a, file_b);
 }
 
 int main(int argc, char* argv[])
@@ -50,7 +71,7 @@ int main(int argc, char* argv[])
 
     strcpy(command, "nvim -c \"");
 
-    file_t files[MAX_FILES];
+    file_t files[MAX_FILES] = { 0 };
 
 
     for (int i = 0; i < argc - 1; ++i)
@@ -66,33 +87,24 @@ int main(int argc, char* argv[])
         files[i] = (file_t) { dir, name };
     }
 
-    qsort(files, argc - 1, sizeof(file_t), cmpr_file);
+    qsort(files, argc - 1, sizeof(file_t), filecmp);
 
     file_t prev = files[0];
     for (int i = 1; i < argc - 1; ++i)
     {
-        char* extension_prev = strrchr(prev.name, '.');
-        char* extension = strrchr(files[i].name, '.');
-
-        char* compare_prev = NULL;
-        char* compare = NULL;
-
-        if (!extension_prev)
-            compare_prev = extension_prev;
-
-        if (!extension)
-            compare = extension;
-
-        int length_prev = compare_prev - prev.name;
-        int length = compare - files[i].name;
-
-        if (strncmp(prev.name, files[i].name, length_prev < length ? length_prev : length))
+        if (namecmp(prev, files[i]))
         {
             strcat(command, "tabe ");
             strcat(command, prev.path);
             strcat(command, "|");
             prev = files[i];
-            continue;
+
+            if (i != argc - 2)
+                continue;
+            strcat(command, "tabe ");
+            strcat(command, files[i].path);
+            strcat(command, "|");
+            break;
         }
 
         strcat(command, "tabe ");
@@ -103,6 +115,13 @@ int main(int argc, char* argv[])
         strcat(command, "|");
 
         prev = files[++i];
+        if (i == argc - 2)
+        {
+            strcat(command, "tabe ");
+            strcat(command, prev.path);
+            strcat(command, "|");
+        }
+
     }
 
     strcat(command, "tabfirst|tabclose\"");
