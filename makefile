@@ -7,7 +7,7 @@ build:
 	$(CC) $(CFLAGS) src/main.c -o $(BIN_NAME)
 
 install: build
-	mv tabs $(INSTALL_PATH)
+	mv $(BIN_NAME) $(INSTALL_PATH)
 
 debug:
 	$(CC) $(CFLAGS) src/main.c -g
