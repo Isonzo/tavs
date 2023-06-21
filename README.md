@@ -8,8 +8,13 @@ Give some files, TabS match the ones with the same name.
 - A globbing shell (such as bash, zsh, ksh, csh, and anything that expands a '*')
 
 ## Installation
+### Manual
 1. Compile the single c file with something like: `$ gcc main.c -o tabs`
 2. Add the resulting binary to your PATH.
+### Makefile
+`make install CC=<compiler> INSTALL_PATH=<path to PATH>`
+For example, if I wanted to use `clang` and put it in my system path, I would do  
+`make install CC=clang INSTALL_PATH=/usr/bin/`
 
 ## Usage
 TabS takes any number of files as arguments:
