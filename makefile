@@ -1,7 +1,7 @@
 CC := gcc
 CFLAGS := -Wall -Wextra -Wpedantic
 INSTALL_PATH := ~/bin/
-BIN_NAME :=tabs
+BIN_NAME :=tavs
 
 build:
 	$(CC) $(CFLAGS) src/main.c -o $(BIN_NAME)
