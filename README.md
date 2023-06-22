@@ -1,6 +1,6 @@
 # Tavs
 A simple utility to open C source and header files in pairs in Neovim.
-Give some files, Tavs match the ones with the same name.
+Give some files, it creates tabs that match the ones with the same name and uses a vertical split.
 
 ## Prerequisites
 - Neovim
@@ -27,4 +27,4 @@ I have defined `MAX_FILES` to be 128 and `MAX_CMD_LENGTH` to be 4096.
 This is completely arbitrary.
 Feel free to change it before compiling.
 I may also change it to suit my needs better in the future, but for now, this more than enough for me.
-I mean, who would want to open 60+ tavs in neovim anyways?
+I mean, who would want to open 60+ tabs in neovim anyways?
