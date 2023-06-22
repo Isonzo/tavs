@@ -108,10 +108,10 @@ int main(int argc, char* argv[])
         }
 
         strcat(command, "tabe ");
-        strcat(command, prev.path);
+        strcat(command, files[i].path);
         strcat(command, "|");
         strcat(command, "vsplit ");
-        strcat(command, files[i].path);
+        strcat(command, prev.path);
         strcat(command, "|");
 
         prev = files[++i];
@@ -121,7 +121,6 @@ int main(int argc, char* argv[])
             strcat(command, prev.path);
             strcat(command, "|");
         }
-
     }
 
     strcat(command, "tabfirst|tabclose\"");
